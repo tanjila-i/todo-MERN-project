@@ -3,6 +3,7 @@ import morgan from "morgan";
 import "dotenv/config";
 import cors from "cors";
 import connectDB from "./src/config/db.js";
+import authRoute from "./src/routes/userRoute.js";
 
 const app = express();
 
@@ -14,9 +15,12 @@ app.use(morgan("dev"));
 app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: true }));
 
+// Routes
+app.use("/api/auth", authRoute);
+
 // server running
 app.listen(port, async () => {
-  console.log(`server is running at http//localhost:${port}`);
+  console.log(`server is running at http://localhost:${port}`);
   await connectDB();
 });
 
