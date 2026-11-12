@@ -18,3 +18,16 @@ app.use(express.urlencoded({ extended: true }));
 app.listen(port, async () => {
   console.log(`server is running at http//localhost:${port}`);
 });
+
+// server error handel
+
+app.use((err, res, req, next) => {
+  const statusCode = err.stuatusCode || 500;
+  const message = err.message || "Internal Server Error";
+
+  res.status(statusCode).json({
+    success: false,
+    message,
+    statusCode,
+  });
+});
