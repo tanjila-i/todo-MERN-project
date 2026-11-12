@@ -4,6 +4,7 @@ import "dotenv/config";
 import cors from "cors";
 import connectDB from "./src/config/db.js";
 import authRoute from "./src/routes/userRoute.js";
+import todoRoute from "./src/routes/todoRoutes.js";
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use("/api/auth", authRoute);
+app.use("/api/todo", todoRoute);
 
 // server running
 app.listen(port, async () => {
