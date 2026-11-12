@@ -68,5 +68,24 @@ export const login = async (req, res, next) => {
     console.log(error.message);
   }
 };
-export const logout = async (req, res, next) => {};
-export const deleted = async (req, res, next) => {};
+export const logout = async (req, res) => {
+  res.clearCookie("token");
+  res.status(200).json({ success: true, message: "Logged out successfully" });
+};
+
+export const deleted = async (req, res, next) => {
+  try {
+    const user = await userModel.findByIdAndDelete({ _id: req.params.id });
+
+    if (!user) {
+      return next(errorHandler(404, "user not found"));
+    }
+    res.status(200).json({
+      success: true,
+      message: "user was deleted",
+    });
+  } catch (error) {
+    next(errorHandler(400, error.message));
+    console.log(error);
+  }
+};
