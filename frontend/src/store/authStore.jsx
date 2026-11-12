@@ -8,4 +8,5 @@ export const userAuthStore = create((set) => ({
   user: null,
   isLoading: false,
   error: null,
+  isSigUp: false,
 }));
