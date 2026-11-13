@@ -4,6 +4,7 @@ import Input from "../components/Input";
 import { Loader, Lock, Mail, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { userAuthStore } from "../store/authStore";
+import toast from "react-hot-toast";
 
 const SignUpIn = () => {
   const { isLoading, error, signUp, login } = userAuthStore();
@@ -22,14 +23,15 @@ const SignUpIn = () => {
     try {
       if (state === "Sign Up") {
         await signUp(name, email, password);
-
+        toast.success("Sign Up Successfully!");
         navigate("/home");
       } else {
         await login(email, password);
-
+        toast.success("login Successfully!");
         navigate("/home");
       }
     } catch (error) {
+      toast.error(error.message);
       console.log(error);
     }
   };

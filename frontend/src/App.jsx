@@ -1,4 +1,5 @@
 import React from "react";
+import { Toaster } from "react-hot-toast";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import SignUpIn from "./pages/SignUpIn";
 import Home from "./pages/Home";
@@ -7,17 +8,18 @@ import FloatingShap from "./components/FloatingShap";
 
 const App = () => {
   // Protect route
-  const ProtectedRoute = ({ children }) => {
-    const { isSigUp } = userAuthStore();
+  // const ProtectedRoute = ({ children }) => {
+  //   const { isSigUp } = userAuthStore();
 
-    if (!isSigUp) {
-      return <Navigate to="/" replace />;
-    }
+  //   if (!isSigUp) {
+  //     return <Navigate to="/" replace />;
+  //   }
 
-    return children;
-  };
+  //   return children;
+  // };
   return (
     <div className="min-h-screen bg-[#020012] flex items-center justify-center relative overflow-hidden">
+      <Toaster position="top-center" />
       <FloatingShap
         color="bg-green-100"
         size="w-64 h-64"
@@ -39,17 +41,11 @@ const App = () => {
         left="50%"
         delay={2}
       />
+
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<SignUpIn />} />
-          <Route
-            path="/home"
-            element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/home" element={<Home />} />
         </Routes>
       </BrowserRouter>
     </div>
