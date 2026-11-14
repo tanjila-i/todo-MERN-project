@@ -1,22 +1,10 @@
-import React from "react";
 import { Toaster } from "react-hot-toast";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignUpIn from "./pages/SignUpIn";
 import Home from "./pages/Home";
-import { userAuthStore } from "./store/authStore";
 import FloatingShap from "./components/FloatingShap";
 
 const App = () => {
-  // Protect route
-  // const ProtectedRoute = ({ children }) => {
-  //   const { isSigUp } = userAuthStore();
-
-  //   if (!isSigUp) {
-  //     return <Navigate to="/" replace />;
-  //   }
-
-  //   return children;
-  // };
   return (
     <div className="min-h-screen bg-[#020012] flex items-center justify-center relative overflow-hidden">
       <Toaster position="top-center" />
