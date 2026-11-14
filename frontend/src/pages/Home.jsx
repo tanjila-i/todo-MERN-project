@@ -105,21 +105,25 @@ const Home = () => {
   }, [allTodos]);
 
   return (
-    <motion.div
+   <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="text-white mb-20"
+      className="text-white mb-20 w-full max-w-md mx-auto px-4 sm:px-0"
     >
-      <div className="flex justify-between gap-80">
-        <h1 className="text-2xl font-extrabold text-gray-300">TODO</h1>
+      {/* Header: Removed gap-80, added items-center */}
+      <div className="flex justify-between items-center w-full">
+        <h1 className="text-xl sm:text-2xl font-extrabold text-gray-300">
+          TODO
+        </h1>
         <div className="flex items-center justify-center gap-2 cursor-pointer group relative">
           <LogOut strokeWidth={1.75} />
-          <div className="absolute top-0 left-0 pt-5 text-center text-base  font-medium text-gray-100 z-10 hidden group-hover:block">
-            <div className="min-w-48 flex flex-col gap-4 p-4 ">
+          {/* Changed left-0 to right-0 so dropdown stays inside mobile screen */}
+          <div className="absolute top-full right-0 pt-2 text-center text-base font-medium text-gray-100 z-10 hidden group-hover:block">
+            <div className="min-w-32 flex flex-col gap-2">
               <p
                 onClick={handeolLogout}
-                className="px-1 py-0.5 bg-[rgba(255,255,255,0.1)] text-sm bg-opacity-50 backdrop-blur-[10px] shadow-gray-300 shadow border border-white/20 rounded-xl"
+                className="px-3 py-1.5 bg-[rgba(255,255,255,0.1)] text-sm bg-opacity-50 backdrop-blur-[10px] shadow-gray-300 shadow border border-white/20 rounded-xl hover:bg-white/20"
               >
                 LogOut
               </p>
@@ -127,28 +131,35 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="mt-15">
+
+      {/* Task Input Form */}
+      <div className="mt-10 sm:mt-15">
         <form
           onSubmit={handelForm}
-          className="w-full pl-4 py-2  bg-opacity-50 rounded-lg transition-all duration-200 shadow-[-2px_-2px_12px] text-white placeholder-gray-400 "
+          className="w-full pl-3 sm:pl-4 py-2 bg-opacity-50 rounded-lg transition-all duration-200 shadow-[-2px_-2px_12px] text-white placeholder-gray-400"
         >
-          <div className="flex gap-3 justify-start">
-            <Text className="mt-1" />
+          <div className="flex gap-2 sm:gap-3 items-center">
+            <Text className="shrink-0" size={20} />
             <input
-              className="flex-1 outline-none"
+              className="flex-1 min-w-0 bg-transparent outline-none text-sm sm:text-base"
               type="text"
               placeholder="Enter your task"
               value={addTask}
               onChange={(e) => setAddTask(e.target.value)}
             />
-            <button type="submit" className="px-3 cursor-pointer py-1">
+            <button
+              type="submit"
+              className="px-2.5 sm:px-3 py-1 text-sm sm:text-base shrink-0 cursor-pointer"
+            >
               {isLoading ? <Loader /> : "Add task"}
             </button>
           </div>
         </form>
       </div>
+
+      {/* Todo List */}
       {!todos?.length ? (
-        <div className="text-center mt-30 text-3xl font-bold text-gray-400">
+        <div className="text-center mt-20 sm:mt-30 text-2xl sm:text-3xl font-bold text-gray-400">
           Add your first task!
         </div>
       ) : (
@@ -159,39 +170,39 @@ const Home = () => {
 
             return (
               <div
-                key={index}
-                className="text-white flex justify-between items-center mt-7"
+                key={id || index}
+                className="text-white flex justify-between items-center gap-3 mt-6 sm:mt-7"
               >
                 {isEditing ? (
-                  <div className="flex flex-1 items-center gap-2 mr-3">
+                  <div className="flex flex-1 items-center gap-2">
                     <input
                       type="text"
                       value={editText}
                       onChange={(e) => setEditText(e.target.value)}
                       onKeyDown={(e) => e.key === "Enter" && handelUpdate(id)}
-                      className="flex-1 bg-white/10 px-3 py-1 rounded outline-none text-white border border-white/20"
+                      className="flex-1 min-w-0 bg-white/10 px-3 py-1 rounded outline-none text-white border border-white/20 text-sm sm:text-base"
                       autoFocus
                     />
                     <Check
                       size={20}
-                      className="cursor-pointer text-green-400"
+                      className="cursor-pointer text-green-400 shrink-0"
                       onClick={() => handelUpdate(id)}
                     />
                     <X
                       size={20}
-                      className="cursor-pointer text-gray-400"
+                      className="cursor-pointer text-gray-400 shrink-0"
                       onClick={() => setEditingId(null)}
                     />
                   </div>
                 ) : (
                   <>
-                    <h1 className="text-xl font-bold text-center">
+                    <h1 className="text-base sm:text-xl font-bold text-left break-words flex-1 min-w-0">
                       {todo.text}
                     </h1>
-                    <div className="flex gap-2">
+                    <div className="flex items-center gap-2.5 shrink-0">
                       <button
                         onClick={() => handleToggleComplete(todo)}
-                        className="mt-1 cursor-pointer"
+                        className="cursor-pointer"
                       >
                         {todo.completed ? (
                           <CheckCircle2 size={20} className="text-green-400" />
@@ -204,12 +215,12 @@ const Home = () => {
                       </button>
                       <PenSquare
                         size={20}
-                        className="mt-1 cursor-pointer"
+                        className="cursor-pointer"
                         onClick={() => startEdit(todo)}
                       />
                       <Trash
                         size={20}
-                        className="mt-1 cursor-pointer"
+                        className="cursor-pointer"
                         onClick={() => handelDelete(id)}
                       />
                     </div>
