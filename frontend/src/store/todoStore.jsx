@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const API_URL = import.meta.env.VITE_API_UR || "http://localhost:5000/api/todo";
+const API_URL = import.meta.env.VITE_API_UR || "https://todo-mern-project-ldcx.onrender.com/api/todo";
 axios.defaults.withCredentials = true;
 
 export const todoStore = create((set) => ({
